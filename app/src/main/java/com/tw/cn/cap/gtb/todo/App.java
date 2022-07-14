@@ -20,12 +20,23 @@ public class App {
 
     public List<String> run() {
         //API的知识
+        //第一层抽象的下一层，因为是为了支撑第一层而做的
+        final List<String> lines = readTaskLines();
+        final List<String> result = new ArrayList<>();
+        //方便扩充
+        result.add("# To be done");
+        //try主要解决readAlllines的问题
+        //result.addAll(lines);
+        for(int i=0;i<lines.size();i++){
+            //字符串拼接,小的用stringformat，大量用stringbuilder
+            result.add(String.format("%d %s", i + 1, lines.get(i)));
+        }
+        return result;
+    }
+
+    private List<String> readTaskLines() {
         try {
-            final List<String> result=new ArrayList<>();
-            //方便扩充
-            result.add("# To be done");
-            result.addAll(Files.readAllLines(Constants.TASKS_FILE_PATH));
-            return result;
+            return Files.readAllLines(Constants.TASKS_FILE_PATH);
         } catch (IOException e) {
             throw new TodoCannotReadFileException();
         }
