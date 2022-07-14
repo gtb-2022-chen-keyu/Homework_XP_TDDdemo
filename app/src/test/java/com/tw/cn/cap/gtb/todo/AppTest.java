@@ -3,11 +3,18 @@
  */
 package com.tw.cn.cap.gtb.todo;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
-    @Test void appHasAGreeting() {
+    @Test
+    void should_list_existing_tasks() {
+        final var result =new App().run();
+        Assertions.assertEquals(List.of("Task 01","Task 02"),List.of());
         App classUnderTest = new App();
         //assert是断言，返回值不为null即可
         assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
