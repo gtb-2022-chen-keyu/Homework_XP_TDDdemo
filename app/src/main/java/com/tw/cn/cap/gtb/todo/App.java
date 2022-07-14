@@ -3,12 +3,12 @@
  */
 package com.tw.cn.cap.gtb.todo;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
 public class App {
+
+    private final TaskRepository taskRepository = new TaskRepository();
 
     public String getGreeting() {
         return "Hello World!";
@@ -20,25 +20,19 @@ public class App {
 
     public List<String> run() {
         //API的知识
-        //第一层抽象的下一层，因为是为了支撑第一层而做的
-        final List<String> lines = readTaskLines();
+        //readTasklines第一层抽象的下一层，因为是为了支撑第一层而做的
+        //loadTasks抽象出来
+        final List<Task> tasks = taskRepository.loadTasks();
         final List<String> result = new ArrayList<>();
         //方便扩充
         result.add("# To be done");
         //try主要解决readAlllines的问题
         //result.addAll(lines);
-        for(int i=0;i<lines.size();i++){
-            //字符串拼接,小的用stringformat，大量用stringbuilder
-            result.add(String.format("%d %s", i + 1, lines.get(i)));
+        //这里不再关注task以下层面的细节
+        for(Task task:tasks){
+            result.add(task.format());
         }
         return result;
     }
 
-    private List<String> readTaskLines() {
-        try {
-            return Files.readAllLines(Constants.TASKS_FILE_PATH);
-        } catch (IOException e) {
-            throw new TodoCannotReadFileException();
-        }
-    }
 }

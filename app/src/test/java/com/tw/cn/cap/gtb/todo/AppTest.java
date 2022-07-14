@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class AppTest {
     @Test
     void should_list_existing_tasks() {
-        final var result =new App().run();
+        final var result = new App().run();
         Assertions.assertEquals(List.of(
-                "# To be done",
-                "1 Task 01",
-                "2 Task 02"),
+                        "# To be done",
+                        "1 Task 01",
+                        "2 Task 02",),
                 result);
         App classUnderTest = new App();
         //assert是断言，返回值不为null即可
