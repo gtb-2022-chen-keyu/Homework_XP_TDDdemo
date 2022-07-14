@@ -5,10 +5,10 @@ package com.tw.cn.cap.gtb.todo;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 public class App {
+
     public String getGreeting() {
         return "Hello World!";
     }
@@ -20,7 +20,8 @@ public class App {
     public List<String> run() {
         //API的知识
         try {
-            return Files.readAllLines(Path.of("/Users/Anne/.todo/tasks"));
+            //写死的路径值
+            return Files.readAllLines(Constants.TASKS_FILE_PATH);
         } catch (IOException e) {
             throw new TodoCannotReadFileException();
         }
