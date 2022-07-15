@@ -17,7 +17,7 @@ class AppTest {
         Assertions.assertEquals(List.of(
                         "# To be done",
                         "1 Task 01",
-                        "2 Task 02",),
+                        "2 Task 02"),
                 result);
         App classUnderTest = new App();
         //assert是断言，返回值不为null即可
