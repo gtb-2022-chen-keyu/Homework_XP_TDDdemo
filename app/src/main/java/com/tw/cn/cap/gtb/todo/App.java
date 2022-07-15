@@ -25,14 +25,38 @@ public class App {
         final List<Task> tasks = taskRepository.loadTasks();
         final List<String> result = new ArrayList<>();
         //方便扩充
-        result.add("# To be done");
         //try主要解决readAlllines的问题
         //result.addAll(lines);
         //这里不再关注task以下层面的细节
+        /*
         for(Task task:tasks){
             result.add(task.format());
         }
+         */
+        //replace with forEach: 选中task alt+enter
+        /* 一块一块且相似，所以重构
+        tasks.stream()
+                .filter(task->!task.isCompleted())
+                .map(Task::format)
+                .forEach(result::add);
+        result.add("# Completed");
+        tasks.stream()
+                .filter(task -> task.isCompleted())
+                .map(Task::format)
+                .forEach(result::add);
+`       */
+        formatSection(tasks, result, "# To be done", false);
+
+        formatSection(tasks, result, "# Completed", true);
         return result;
+    }
+
+    private void formatSection(List<Task> tasks, List<String> result, String title, boolean flag) {
+        result.add(title);
+        tasks.stream()
+                .filter(task-> flag ==task.isCompleted())
+                .map(Task::format)
+                .forEach(result::add);
     }
 
 }
